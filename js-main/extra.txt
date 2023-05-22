@@ -1,0 +1,9 @@
+ <div class="container d-flex h-100 align-items-center  animate__animated animate__fadeInDown">
+                  <div class="mx-auto text-center">
+                   
+            
+                    <img  onload = "changex();changext();" class="img-fluid "  src="pics/pic/SPECIEMOGULHOODIE.png" width = "350" height = "350" alt="" >
+                  
+                        
+                    <button id = "ineedit" class="btn blur blur-rounded btn-grey mogul-btn" style= "font-size: 1px; padding: 5px 20px; right: 5px;  " data-toggle="modal" data-target="" data-whatever="@mdo"
+                        onclick = "blackout(); blackout();">
