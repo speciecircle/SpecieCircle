@@ -141,7 +141,7 @@
             </div>
             <div class="modal-footer">
             
-              <button type="submit" id = "submitMogul" name = "submitXMogul" value = "success" onclick = 'basketsent(); '  class="btn btn-grey text-white">Purchase</button>
+              <button type="submit" id = "submitMogul" name = "submitXMogul" value = "success" class="btn btn-grey text-white">Purchase</button>
 
               <script>
                 async function PURCHASE_WINDOW_X() {
@@ -313,7 +313,7 @@
     
       
       <button id = "buttoneth" value = "Connect"  class="btn blur blur-rounded btn-grey" style = "font-size: 0px; padding: 0px 0px; "
-      onclick = "connectx(); check(); ethereum.on('connect', () => window.location.reload()); ">
+      onclick = "connectx(); check(); ">
       <style>
         .btn-greygrey {
 background-color: #222222  !important;
@@ -328,55 +328,60 @@ background-color: #222222  !important;
           }
 
       </style>
-       <script>
-           async function check() {
-        // Then get the currently selected radio button's value
-        
-        console.log(window.ethereum)
-  
-        if (window.ethereum !== undefined) {
-    // From now on, this should always be true:
-    // provider === window.ethereum
-            console.log(window.ethereum); // initialize your app
-            
-                                          } else {
-  
-            
-             $("#nowebModal").modal('show');
+     
+       <img onload = "changex();" onclick = "connectx(); check();" src="pics/pic/goldensimage.png" id="Avatar" width = "50px" style = "position: relative; border-radius: 50%; top: 2px; left: 5px; ">
+       <a id = "connecteth" onclick = "connectx(); check();"  class=" btn blur blur-rounded btn-greygrey text-white " style = "font-size: 15px;padding: 15px 15px;  right: 8px; top:-5px;  position: relative"> Connect
+      </a>
+
+      <script>
+        async function check() {
+     // Then get the currently selected radio button's value
+     
+     console.log(window.ethereum)
+
+     if (window.ethereum !== undefined) {
+ // From now on, this should always be true:
+ // provider === window.ethereum
+         console.log(window.ethereum); // initialize your app
+         
+                                       } else {
+
+         
+          $("#nowebModal").modal('show');
+ 
+                                       }
+
+     // Check the value to make sure you want to show the modal
     
-                                          }
-  
-        // Check the value to make sure you want to show the modal
-       
-      }
-         async function changex()
+   }
+      async function changex()
 {  
-  const accounts = await ethereum.request({ method: 'eth_accounts' });
+const accounts = await ethereum.request({ method: 'eth_accounts' });
 
 const chainIDs = await ethereum.request({method: 'eth_chainId'});
 if (chainIDs !== "0x89") {
-  document.getElementById("connecteth").style.fontSize = "x-small";
+document.getElementById("connecteth").style.fontSize = "x-small";
 
-  document.getElementById("connecteth").innerHTML = "Polygon Only";
- switchChain("Polygon") ;
- ethereum.on('chainChanged', (_chainId) => window.location.reload());
+document.getElementById("connecteth").innerHTML = "Polygon Only";
+switchChain("Polygon") ;
+ethereum.on('chainChanged', (_chainId) => window.location.reload());
 
 } else {
 
-  document.getElementById("connecteth").innerHTML = accounts[0].substring(0,6) + "...";
-  document.getElementById("Avatar").src = "pics/pic/greenensimage.png";
+document.getElementById("connecteth").innerHTML = await accounts[0].substring(0,6) + "...";
+document.getElementById("Avatar").src = "pics/pic/greenensimage.png";
 
 }
 
 }
 
 async function switchChain(chains) {
-  
-  const Polygon = [{ chainId: '0x89'}]; 
-  const PolygonID = '0x89' ; 
+
+const Polygon = [{ chainId: '0x89'}]; 
+const PolygonID = '0x89' ; 
 
 
-  var chainsx = { "Polygon" : Polygon};
+var chainsx = { "Polygon" : Polygon};
 var chainx = { "Polygon" : PolygonID};
 
 var RPCchain = {'Polygon' : 'https://polygon-rpc.com'}
@@ -385,28 +390,28 @@ var expchain = {'Polygon' : 'https://polygonscan.io/'}
 
 
 await ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: chainsx[chains]
-    }).catch(async (switchError) => {
-                              // This error code indicates that the chain has not been added to MetaMask.
+       method: 'wallet_switchEthereumChain',
+       params: chainsx[chains]
+ }).catch(async (switchError) => {
+                           // This error code indicates that the chain has not been added to MetaMask.
 if (switchError.code === 4902) {
-            await ethereum.request({
-                    method: 'wallet_addEthereumChain',
-                    params: [
-                                { 
-                                  chainId: chainx[chains], 
-                                  chainName: chains, 
-                                  nativeCurrency: {
-                                                        name: chains,
-                                                        symbol: symChain[chains],
-                                                        decimals: 18
-                                }, 
-                                  rpcUrls: [RPCchain[chains]], 
-                                  blockExplorerUrls: [expchain[chains]]
-                }
-                
-                ]
-              });
+         await ethereum.request({
+                 method: 'wallet_addEthereumChain',
+                 params: [
+                             { 
+                               chainId: chainx[chains], 
+                               chainName: chains, 
+                               nativeCurrency: {
+                                                     name: chains,
+                                                     symbol: symChain[chains],
+                                                     decimals: 18
+                             }, 
+                               rpcUrls: [RPCchain[chains]], 
+                               blockExplorerUrls: [expchain[chains]]
+             }
+             
+             ]
+           });
 }
 // handle other "switch" errors
 })
@@ -419,39 +424,36 @@ ethereum.on('chainChanged', (_chainId) => window.location.reload());
 
 
 
+}
+  async function connectx() {
+
+ethereum
+.request({ method: 'eth_requestAccounts' })
+.then(changex)
+.catch((err) => {
+ if (err.code === 4001) {
+   // EIP-1193 userRejectedRequest error
+   // If this happens, the user rejected the connection request.
+   console.log('Please connect to MetaMask.');
+   document.getElementById("connecteth").innerHTML = "Rejected";
+
+   
+ } else {
+   console.error(err);
+ }
+}).then((result) => { changex()});
+
+
+
 };
-async function connectx() {
-
-  ethereum
-  .request({ method: 'eth_requestAccounts' })
-  .then(changex)
-  .catch((err) => {
-    if (err.code === 4001) {
-      // EIP-1193 userRejectedRequest error
-      // If this happens, the user rejected the connection request.
-      console.log('Please connect to MetaMask.');
-      document.getElementById("connecteth").innerHTML = "Rejected";
-
-      
-    } else {
-      console.error(err);
-    }
-  }).then((result) => { window.location.reload()});
-
-
-
-};
 
 
 
 
 
 
-       </script> 
-       
-       <img onload = "changex();" src="pics/pic/goldensimage.png" id="Avatar" width = "50px" style = "position: relative; border-radius: 50%; top: 2px; left: 5px; ">
-       <a id = "connecteth"  class=" btn blur blur-rounded btn-greygrey text-white " style = "font-size: 15px;padding: 15px 15px;  right: 8px; top:-5px;  position: relative"> Connect
-      </a>
+    </script> 
+    
 
     <style>
   .bg-darkgrey {
@@ -522,6 +524,7 @@ async function connectx() {
                                     var ETH_PRICE = (121 + (121 * ((100 - parseInt(totalsupply)) / 100)))
                                     console.log("Latest price was:" , price)}
                                     console.log(parseInt(data));
+                                    
                                     document.getElementById("PurchaseETH").value = ETH_PRICE.toFixed(2);
                                     document.getElementById("mogsub").value = "$" + price.toFixed(2);
                                     console.log("Latest MATIC price: " + ETH_PRICE.toFixed(2)  + " MATIC");
@@ -615,7 +618,6 @@ if (chainIDs !== "0x89") {
                      
                   <canvas  id="myChart" width="0" height="0"></canvas>
                   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-                  <script type="text/javascript" src="js/ABI_SPECIE.1.js"></script>
     
                   <script>
                     async function SPECIE_SUPPLY_X_CHAINLINK_ORACLE()
@@ -782,7 +784,30 @@ async function currentSupply() {
 
         <!-- Footer-->
 
-      
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+        
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+        <script>
+         
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBvkknbqcOM2KYG3Ja5VW4iW3ZZuSmVqOo",
+  authDomain: "speciecircle.firebaseapp.com",
+  projectId: "speciecircle",
+  storageBucket: "speciecircle.appspot.com",
+  messagingSenderId: "1098203895154",
+  appId: "1:1098203895154:web:a632af23f9a8ce1a8779eb",
+  measurementId: "G-23X951F93S"
+};
+
+
+
+ firebase.initializeApp(firebaseConfig)
+        </script>
   
         <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider"></script>
         <!-- Bootstrap core JS-->
@@ -803,4 +828,3 @@ async function currentSupply() {
         
     </body>
 </html>
-

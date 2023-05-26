@@ -1,4 +1,4 @@
- const inventoryabi =  [
+const inventoryabi =  [
 	{
 		"inputs": [
 			{
@@ -858,10 +858,9 @@
 	}
 ];
 
+const addressInv = "0x6f25982c42BF031DD850fC1a012dA430224858cC" 
 
-        const addressInv = '0x2adB76fF00D8ce501FaF413d96e4767Bc9Da3234';
-
-        const CHAINLINK_ORACLE_ABI = [
+const CHAINLINK_ORACLE_ABI = [
             {
                 "inputs": [
                     {

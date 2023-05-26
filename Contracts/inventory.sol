@@ -101,7 +101,7 @@ contract Inventory {
         owner = msg.sender;
         
         smallSizes.amount = 20;
-        mediumSizes.amount = 20 ;
+        mediumSizes.amount = 20;
         largeSizes.amount = 20;
         xlargeSizes.amount = 20;
         xxlargeSizes.amount = 20;
@@ -183,7 +183,7 @@ contract Specie is Context, IERC20, Inventory {
     constructor (string memory name_, string memory symbol_) public {
         _name = name_;
         _symbol = symbol_;
-        _decimals = 0;
+        _decimals = 18;
     }
 
     /**
@@ -414,8 +414,8 @@ contract Specie is Context, IERC20, Inventory {
      * applications that interact with token contracts will not expect
      * {decimals} to ever change, and may work incorrectly if it does.
      */
-    function _setupDecimals(uint8 decimals_) internal virtual {
-        _decimals = decimals_;
+    function _setupDecimals() internal virtual {
+        _decimals = 18;
     }
 
     /**
@@ -479,7 +479,7 @@ contract Specie is Context, IERC20, Inventory {
         smallSizes_.amount -= _small_sizes; 
         }
         buyer.small_sizes += _small_sizes;
-        _mint( _address, _small_sizes);
+        _mint( _address, _small_sizes * 1000000000000000000);
         emit boughtsmallsizeamount(_address, _small_sizes, block.number);
         
         
@@ -492,7 +492,7 @@ contract Specie is Context, IERC20, Inventory {
         mediumSizes_.amount -= _medium_sizes;
         }
         buyer.medium_sizes += _medium_sizes;
-        _mint(_address, _medium_sizes);
+        _mint(_address, _medium_sizes * 1000000000000000000);
         emit boughtmediumsizeamount(_address, _medium_sizes, block.number);
         
         
@@ -504,7 +504,7 @@ contract Specie is Context, IERC20, Inventory {
         largeSizes_.amount -= _large_sizes;
         }
         buyer.large_sizes += _large_sizes;
-        _mint(_address, _large_sizes);
+        _mint(_address, _large_sizes * 1000000000000000000);
         emit boughtlargesizeamount(_address, _large_sizes, block.number);
         
         
@@ -518,7 +518,7 @@ contract Specie is Context, IERC20, Inventory {
         xlargeSizes_.amount -= _xlarge_sizes;
         }
         buyer.xlarge_sizes += _xlarge_sizes;
-        _mint(_address, _xlarge_sizes);
+        _mint(_address, _xlarge_sizes * 1000000000000000000);
         emit boughtxlargesizeamount(_address, _xlarge_sizes, block.number);
         
         
@@ -533,7 +533,7 @@ contract Specie is Context, IERC20, Inventory {
         xxlargeSizes_.amount -= _xxlarge_sizes;
         }
         buyer.xxlarge_sizes += _xxlarge_sizes;
-        _mint(_address, _xxlarge_sizes);
+        _mint(_address, _xxlarge_sizes * 1000000000000000000);
         emit boughtxxlargesizeamount(_address, _xxlarge_sizes, block.number);
         
         buyer.OrderNum = block.number;
@@ -560,7 +560,7 @@ contract Specie is Context, IERC20, Inventory {
         percentup = xbought.div(cccbought);
 
     
-        Rate = 121 ether;
+        Rate =  121 ether;
         NewRate = Rate + percentup ;
         
         
@@ -574,7 +574,7 @@ contract Specie is Context, IERC20, Inventory {
         
         emit percentChange(NewRate);
         emit currentsupply(cccbought);
-        emit sizesbought( xbought);
+        emit sizesbought(xbought);
         emit bought(TotalBasketAmount);
         owner.transfer(msg.value);
         

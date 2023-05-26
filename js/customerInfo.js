@@ -14,102 +14,13 @@ const country = document.getElementById("inputCountry");
 const ORDER_TOTAL = smallxMA + mediumxMA + largexMA + xlargexMA + xxlargexMA;
 
 
-var myHeaders = new Headers();
-myHeaders.append("Host", "api.shipengine.com");
-myHeaders.append("API-Key", "TEST_DpCacgWDWyY33+3uzB4l3bqQSKSPN792sfrVnwrJIC8");
-myHeaders.append("Content-Type", "application/json");
-var ADDRESS_LOOKUP = JSON.stringify([
-  {
-    "address_line1": xaddress,
-    "city_locality": city,
-    "state_province": state,
-    "postal_code": zipcode,
-    "country_code": country
-  }
-]);
 
 
- async function ITEM_SIZE_PACKAGE() {
-  var TOTAL_ORDER_CHEST_AMOUNT = 0;
 
-  if (smallxMA > 0) {
-
-    TOTAL_ORDER_CHEST_AMOUNT = smallxMA * 21;
-    return TOTAL_ORDER_AMOUNT;
-
-  }
-
-  if (mediumxMA > 0) {
-
-    TOTAL_ORDER_CHEST_AMOUNT = TOTAL_ORDER_CHEST_AMOUNT + mediumxMA * 22;
-    return TOTAL_ORDER_AMOUNT;
-
-  }
-
-  if (largexMA > 0) {
-
-    TOTAL_ORDER_AMOUNT = TOTAL_ORDER_AMOUNT + largexMA * 23;
-    return TOTAL_ORDER_AMOUNT;
-
-  }
-
-  if (xlargexMA > 0) {
-
-    TOTAL_ORDER_AMOUNT = TOTAL_ORDER_AMOUNT + xlargexMA * 24;
-    return TOTAL_ORDER_AMOUNT;
-
-  }
-
-  return TOTAL_ORDER_AMOUNT;
- }
+ 
 
 
-var ADDRESS_SENDING = JSON.stringify({
-  "shipment": {
-    "service_code": "ups_ground",
-    "ship_to": {
-      "name": fullname,
-      "address_line1": xaddress,
-      "city_locality": city,
-      "state_province": state,
-      "postal_code": zipcode,
-      "country_code": country,
-      "address_residential_indicator": "yes"
-    },
-    "ship_from": {
-      "name": "Specie Circle",
-      "company_name": "Specie Circle",
-      "phone": "NA",
-      "address_line1": " PO BOX",
-      "city_locality": "NA",
-      "state_province": "NA",
-      "postal_code": "NA",
-      "country_code": "US",
-      "address_residential_indicator": "no"
-    },
-    "packages": [
-      {
-        "weight": {
-          "value": 20 * ORDER_TOTAL ,
-          "unit": "ounce"
-        },
-        "dimensions": {
-          "height": 6,
-          "width": 12,
-          "length": 24,
-          "unit": "inch"
-        }
-      }
-    ]
-  }
-})
 
-var REQUEST_OPTIONS = {
-  method: 'POST',
-  headers: myHeaders,
-  body: ADDRESS_SENDING,
-  redirect: 'follow'
-};
 
 
 
@@ -121,10 +32,9 @@ const rootRef2 = database.ref('pricing');
 
 
 
-submitMogulx.addEventListener('click',  (e) => {
+submitMogulx.addEventListener('click', async (e) => {
     firebase.auth().signInAnonymously();
     
-    async function basketsent() {
 
         const accounts = await ethereum.request({ method: 'eth_accounts' });
         const web3 = new Web3(new Web3.providers.HttpProvider("https://polygon-mainnet.infura.io/v3/3ac1c65d7658459ebafe15361c77dbac"))
@@ -176,10 +86,10 @@ submitMogulx.addEventListener('click',  (e) => {
         var buying = ether + parseInt(xrate);
         var cart = (buying * xbought);
         var Rate = web3.utils.numberToHex(cart);
-        var tip = web3.utils.toWei("1", 'gwei');
+        var tip = web3.utils.toWei("80", 'gwei');
         var gasup = web3.utils.numberToHex(700000);
         var gasxup = web3.utils.numberToHex(215051);
-        var tipup = web3.utils.numberToHex(1500000000);
+        var tipup = web3.utils.numberToHex(80000000000);
         oracle.methods.latestAnswer().call({from: accounts[0]}, function(error, res) {
           if (error != null) {
                                 console.log(error)
@@ -193,6 +103,7 @@ var price = parseInt(pricex)  + (parseInt(pricex) * xcart);
                 });
         
         console.log(cart);
+        console.log(Rate)
     
     
   if (xbought > 0 ) {     
@@ -267,7 +178,7 @@ var price = parseInt(pricex)  + (parseInt(pricex) * xcart);
 
                  
 
-                    document.getElementById('subhash').href = "https://polygonscan.io/tx/" + addhash ;
+                    document.getElementById('subhash').href = "https://polygonscan.com/tx/" + addhash ;
                     document.getElementById('subhash').target = "_blank"
                     console.log(addhash);
                     $("#subwebModal").modal('show');
@@ -286,7 +197,7 @@ var price = parseInt(pricex)  + (parseInt(pricex) * xcart);
                         $("#exampleModal").modal('hide');
                         $("#subwebModal").modal('hide');
 
-                        document.getElementById('suchash').href = "https://polygonscan.io/tx/" + addhash ;
+                        document.getElementById('suchash').href = "https://polygonscan.com/tx/" + addhash ;
                         document.getElementById('suchash').target = "_blank"
                         
                         console.log(addhash)
@@ -331,11 +242,10 @@ var price = parseInt(pricex)  + (parseInt(pricex) * xcart);
     
                   basketcheck();
 
-            } 
+             
     
 
             
-    basketsent();
  
   
         
