@@ -427,7 +427,7 @@ ethereum.on('chainChanged', (_chainId) => window.location.reload());
 }
   async function connectx() {
 
-ethereum
+await ethereum
 .request({ method: 'eth_requestAccounts' })
 .then(changex)
 .catch((err) => {
@@ -813,7 +813,7 @@ const firebaseConfig = {
         <!-- Bootstrap core JS-->
        <script src="https://cdnjs.cloudflare.com/ajax/libs/utf8/3.0.0/utf8.js" integrity="sha512-TpkRcfygox9TaC40D5Nu9CQElI7PaQ9d+/RrhWccgvktjgh/HITPo+VZ+xQc98DZbiR3Ct/z9BHXAp/m88j/kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/utf8/3.0.0/utf8.min.js" integrity="sha512-Up/VFqLmUsS5GMd4XTuxE6NsCsBJlPv12A9apHDqRx8v/x+++Qmmg2M1kTs8cQztxHk0d/rgAqmVOjzEKBZH7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
         <!-- Third party plugin JS-->
